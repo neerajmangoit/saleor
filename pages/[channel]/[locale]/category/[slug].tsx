@@ -73,3 +73,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 CategoryPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
+export const config = {
+  unstable_JsPreload: false
+}

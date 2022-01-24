@@ -74,3 +74,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 CollectionPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+
+export const config = {
+  unstable_JsPreload: false
+}
