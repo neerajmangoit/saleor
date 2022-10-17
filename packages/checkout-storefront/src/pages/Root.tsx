@@ -4,7 +4,7 @@ import { createFetch, createSaleorClient, SaleorProvider } from "@saleor/sdk";
 import { IntlProvider } from "react-intl";
 
 import { Checkout, CheckoutSkeleton } from "@/checkout-storefront/views/Checkout";
-import { DEFAULT_LOCALE, getCurrentLocale } from "@/checkout-storefront/lib/regions";
+import { DEFAULT_LOCALE, getCurrentLocale, Locale } from "@/checkout-storefront/lib/regions";
 import { getQueryVariables } from "@/checkout-storefront/lib/utils";
 import { AppConfigProvider } from "@/checkout-storefront/providers/AppConfigProvider";
 import {
@@ -14,8 +14,9 @@ import {
 import { PageNotFound } from "@/checkout-storefront/views/PageNotFound";
 import { ToastContainer } from "react-toastify";
 import { alertsContainerProps } from "../hooks/useAlerts/consts";
-import { Suspense, useMemo } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { AppEnv } from "@/checkout-storefront/providers/AppConfigProvider/types";
+import { UrlChangeHandlerArgs, useUrlChange } from "@/checkout-storefront/hooks/useUrlChange";
 
 export interface RootProps {
   env: AppEnv;
@@ -23,6 +24,7 @@ export interface RootProps {
 
 export const Root = ({ env }: RootProps) => {
   const orderId = getQueryVariables().orderId;
+  const [currentLocale, setCurrentLocale] = useState<Locale>(getCurrentLocale());
 
   const authorizedFetch = useMemo(() => createFetch(), []);
 
@@ -48,10 +50,16 @@ export const Root = ({ env }: RootProps) => {
     [env.apiUrl]
   );
 
+  const handleUrlChange = ({ queryParams: { locale } }: UrlChangeHandlerArgs) => {
+    setCurrentLocale(locale);
+  };
+
+  useUrlChange(handleUrlChange);
+
   return (
     // @ts-ignore React 17 <-> 18 type mismatch
     <SaleorProvider client={saleorClient}>
-      <IntlProvider defaultLocale={DEFAULT_LOCALE} locale={getCurrentLocale()}>
+      <IntlProvider defaultLocale={DEFAULT_LOCALE} locale={currentLocale}>
         <UrqlProvider value={client}>
           <AppConfigProvider env={env}>
             <div className="app">
