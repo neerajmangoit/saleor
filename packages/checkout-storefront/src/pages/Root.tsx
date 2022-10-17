@@ -14,7 +14,7 @@ import {
 import { PageNotFound } from "@/checkout-storefront/views/PageNotFound";
 import { ToastContainer } from "react-toastify";
 import { alertsContainerProps } from "../hooks/useAlerts/consts";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useMemo, useState, useCallback } from "react";
 import { AppEnv } from "@/checkout-storefront/providers/AppConfigProvider/types";
 import { UrlChangeHandlerArgs, useUrlChange } from "@/checkout-storefront/hooks/useUrlChange";
 
@@ -50,9 +50,12 @@ export const Root = ({ env }: RootProps) => {
     [env.apiUrl]
   );
 
-  const handleUrlChange = ({ queryParams: { locale } }: UrlChangeHandlerArgs) => {
-    setCurrentLocale(locale);
-  };
+  const handleUrlChange = useCallback(
+    ({ queryParams: { locale } }: UrlChangeHandlerArgs) => {
+      setCurrentLocale(locale);
+    },
+    [setCurrentLocale]
+  );
 
   useUrlChange(handleUrlChange);
 
