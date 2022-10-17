@@ -18,7 +18,7 @@ export const getByUnmatchingId =
   (obj: T) =>
     obj.id !== idToCompare;
 
-export type QueryVariables = Partial<
+export type QueryParams = Partial<
   Record<
     "checkoutId" | "passwordResetToken" | "email" | "orderId" | "redirectUrl" | "locale",
     string
@@ -27,7 +27,7 @@ export type QueryVariables = Partial<
 
 const getRawQueryParams = () => queryString.parse(location.search);
 
-export const getQueryVariables = (): QueryVariables => {
+export const getQueryParams = (): QueryParams => {
   const vars = getRawQueryParams();
   return {
     ...vars,
@@ -35,7 +35,7 @@ export const getQueryVariables = (): QueryVariables => {
     checkoutId: vars.checkout as string | undefined,
     orderId: vars.order as string | undefined,
     passwordResetToken: vars.token as string | undefined,
-  } as QueryVariables;
+  } as QueryParams;
 };
 
 export const setLanguageInUrl = (locale: Locale) =>
@@ -70,7 +70,7 @@ export const replaceUrl = ({
 export const getCurrentHref = () => location.href;
 
 export const isOrderConfirmationPage = () => {
-  const { orderId } = getQueryVariables();
+  const { orderId } = getQueryParams();
   return typeof orderId === "string";
 };
 
@@ -85,7 +85,7 @@ export const getParsedLocaleData = (locale?: Locale): { locale: Locale; country:
 };
 
 export const extractCheckoutIdFromUrl = (): string => {
-  const { checkoutId } = getQueryVariables();
+  const { checkoutId } = getQueryParams();
 
   if (isOrderConfirmationPage()) {
     return "";

@@ -5,7 +5,7 @@ import { IntlProvider } from "react-intl";
 
 import { Checkout, CheckoutSkeleton } from "@/checkout-storefront/views/Checkout";
 import { DEFAULT_LOCALE, getCurrentLocale, Locale } from "@/checkout-storefront/lib/regions";
-import { getQueryVariables } from "@/checkout-storefront/lib/utils";
+import { getQueryParams } from "@/checkout-storefront/lib/utils";
 import { AppConfigProvider } from "@/checkout-storefront/providers/AppConfigProvider";
 import {
   OrderConfirmation,
@@ -23,7 +23,7 @@ export interface RootProps {
 }
 
 export const Root = ({ env }: RootProps) => {
-  const orderId = getQueryVariables().orderId;
+  const orderId = getQueryParams().orderId;
   const [currentLocale, setCurrentLocale] = useState<Locale>(getCurrentLocale());
 
   const authorizedFetch = useMemo(() => createFetch(), []);
