@@ -35,7 +35,7 @@ export const useSummaryLineLineAttributesText = (
   const intl = useIntl();
 
   const parsedValues: string[] =
-    line.variant?.attributes?.reduce<string[]>(
+    line.variant?.attributes?.reduce(
       (result: string[], { values }: { values: AttributeValue[] }) => [
         ...result,
         ...values.map(({ name, dateTime, translation }) => {
