@@ -3,6 +3,7 @@ import {
   CheckoutLineFragment,
   LanguageCodeEnum,
   OrderLineFragment,
+  SelectedAttribute,
 } from "@/checkout-storefront/graphql";
 import compact from "lodash-es/compact";
 import { useIntl } from "react-intl";
@@ -33,25 +34,41 @@ export const useSummaryLineLineAttributesText = (
 ): string => {
   const intl = useIntl();
 
-  return (
-    compact(
-      line.variant?.attributes.reduce(
-        (result: string[], { values }: { values: AttributeValue[] }) => [
-          ...result,
-          ...values.map(({ name, dateTime, translation }) => {
-            // if (translation?.name) {
-            //   return translation.name;
-            // }
+  const parsedValues: string[] =
+    line.variant?.attributes?.reduce<string[]>(
+      (result: string[], { values }: { values: AttributeValue[] }) => [
+        ...result,
+        ...values.map(({ name, dateTime, translation }) => {
+          // if (translation?.name) {
+          //   return translation.name;
+          // }
 
-            // if (dateTime) {
-            //   return intl.formatDate(dateTime, { dateStyle: "medium" });
-            // }
+          // if (dateTime) {
+          //   return intl.formatDate(dateTime, { dateStyle: "medium" });
+          // }
 
-            return name as string;
-          }),
-        ],
-        [] as string[]
-      )
-    ).join(", ") || ""
-  );
+          return name as string;
+        }),
+      ],
+      [] as string[]
+    ) || [];
+  // line.variant?.attributes?.reduce<Array<string | null | undefined>>(
+  //   (result: Array<string | null | undefined>, { values }: { values: AttributeValue[] }) => [
+  //     ...result,
+  //     ...values.map(({ name, dateTime, translation }) => {
+  //       // if (translation?.name) {
+  //       //   return translation.name;
+  //       // }
+
+  //       // if (dateTime) {
+  //       //   return intl.formatDate(dateTime, { dateStyle: "medium" });
+  //       // }
+
+  //       return name;
+  //     }),
+  //   ],
+  //   []
+  // ) || [];
+
+  return compact(parsedValues).join(", ");
 };

@@ -4,13 +4,15 @@ import { DEFAULT_LOCALE, Locale } from "@/checkout-storefront/lib/regions";
 import { getParsedLocaleData, getQueryParams } from "@/checkout-storefront/lib/utils";
 import { useState } from "react";
 
-import En from "@/checkout-storefront/compiled-locales/en-US.json";
+import EN_US from "@/checkout-storefront/compiled-locales/en-US.json";
+import PL_PL from "@/checkout-storefront/compiled-locales/pl-PL.json";
 import Minion from "@/checkout-storefront/compiled-locales/minion.json";
 
-const localeToMessages = {
-  "en-US": En,
+const localeToMessages: Record<Locale, any> = {
+  "en-US": EN_US,
+  "pl-PL": PL_PL,
   minion: Minion,
-} as const;
+};
 
 interface UseLocale {
   locale: Locale;
@@ -26,7 +28,7 @@ export const useLocale = (): UseLocale => {
 
   const messages =
     currentLocale in localeToMessages
-      ? localeToMessages[currentLocale as keyof typeof localeToMessages]
+      ? localeToMessages[currentLocale]
       : localeToMessages[DEFAULT_LOCALE];
 
   if (!messages) {
