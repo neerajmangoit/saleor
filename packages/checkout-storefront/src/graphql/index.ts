@@ -22216,6 +22216,7 @@ export type CheckoutFragment = {
           translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
         }>;
       }>;
+      translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
       product: {
         __typename?: "Product";
         name: string;
@@ -22269,6 +22270,7 @@ export type CheckoutLineFragment = {
         translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
       }>;
     }>;
+    translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
     product: {
       __typename?: "Product";
       name: string;
@@ -22417,6 +22419,7 @@ export type CheckoutQuery = {
             translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
           }>;
         }>;
+        translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
         product: {
           __typename?: "Product";
           name: string;
@@ -22628,6 +22631,7 @@ export type CheckoutLinesUpdateMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -22772,6 +22776,7 @@ export type CheckoutLineDeleteMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -22916,6 +22921,7 @@ export type CheckoutEmailUpdateMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23059,6 +23065,7 @@ export type CheckoutCustomerAttachMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23202,6 +23209,7 @@ export type CheckoutCustomerDetachMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23445,6 +23453,7 @@ export type CheckoutShippingAddressUpdateMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23590,6 +23599,7 @@ export type CheckoutBillingAddressUpdateMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23734,6 +23744,7 @@ export type CheckoutDeliveryMethodUpdateMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -23900,6 +23911,7 @@ export type CheckoutAddPromoCodeMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -24045,6 +24057,7 @@ export type CheckoutRemovePromoCodeMutation = {
               translation?: { __typename?: "AttributeValueTranslation"; name: string } | null;
             }>;
           }>;
+          translation?: { __typename?: "ProductVariantTranslation"; name: string } | null;
           product: {
             __typename?: "Product";
             name: string;
@@ -24406,6 +24419,9 @@ export const CheckoutLineFragmentDoc = gql`
       }
       id
       name
+      translation(languageCode: $languageCode) {
+        name
+      }
       product {
         name
         translation(languageCode: $languageCode) {
