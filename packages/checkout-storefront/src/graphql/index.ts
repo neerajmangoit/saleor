@@ -22504,7 +22504,6 @@ export type UserQuery = {
 
 export type ChannelQueryVariables = Exact<{
   slug: Scalars["String"];
-  languageCode: LanguageCodeEnum;
 }>;
 
 export type ChannelQuery = {
@@ -24685,7 +24684,7 @@ export function useUserQuery(options?: Omit<Urql.UseQueryArgs<UserQueryVariables
   return Urql.useQuery<UserQuery, UserQueryVariables>({ query: UserDocument, ...options });
 }
 export const ChannelDocument = gql`
-  query channel($slug: String!, $languageCode: LanguageCodeEnum!) {
+  query channel($slug: String!) {
     channel(slug: $slug) {
       countries {
         code

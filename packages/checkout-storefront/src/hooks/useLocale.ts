@@ -2,7 +2,7 @@ import { CountryCode } from "@/checkout-storefront/graphql";
 import { UrlChangeHandlerArgs, useUrlChange } from "@/checkout-storefront/hooks/useUrlChange";
 import { DEFAULT_LOCALE, Locale } from "@/checkout-storefront/lib/regions";
 import { getParsedLocaleData, getQueryParams } from "@/checkout-storefront/lib/utils";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import EN_US from "@/checkout-storefront/compiled-locales/en-US.json";
 import PL_PL from "@/checkout-storefront/compiled-locales/pl-PL.json";
@@ -26,10 +26,13 @@ export const useLocale = (): UseLocale => {
   const [currentLocale, setCurrentLocale] = useState<Locale>(locale);
   const [currentCountryCode, setCurrentCountryCode] = useState<CountryCode>(countryCode);
 
-  const messages =
-    currentLocale in localeToMessages
-      ? localeToMessages[currentLocale]
-      : localeToMessages[DEFAULT_LOCALE];
+  const messages = useMemo(
+    () =>
+      currentLocale in localeToMessages
+        ? localeToMessages[currentLocale]
+        : localeToMessages[DEFAULT_LOCALE],
+    [currentLocale]
+  );
 
   if (!messages) {
     console.warn(`Missing messages for locale: ${currentLocale}`);
@@ -43,5 +46,8 @@ export const useLocale = (): UseLocale => {
 
   useUrlChange(handleChange);
 
-  return { locale: currentLocale, countryCode: currentCountryCode, messages };
+  return useMemo(
+    () => ({ locale: currentLocale, countryCode: currentCountryCode, messages }),
+    [currentCountryCode, currentLocale, messages]
+  );
 };

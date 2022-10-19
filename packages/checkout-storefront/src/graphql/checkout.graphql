@@ -220,7 +220,7 @@ query user {
   }
 }
 
-query channel($slug: String!, $languageCode: LanguageCodeEnum!) {
+query channel($slug: String!) {
   channel(slug: $slug) {
     countries {
       code
