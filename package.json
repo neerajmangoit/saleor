@@ -2,10 +2,10 @@
   "name": "saleor-storefront",
   "version": "0.0.0",
   "private": true,
-  //"workspaces": [
-   // "apps/*",
-   // "packages/*"
- // ],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "env-cmd --no-override -f .env env-cmd --no-override -f .env.local --fallback turbo run build --cache-dir=.turbo",
     "build:saleor-app-checkout": "pnpm run build --filter=saleor-app-checkout...",
